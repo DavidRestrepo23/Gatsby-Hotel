@@ -1,21 +1,35 @@
 import React from "react"
-import { Link } from "gatsby"
+import Layout from '../components/layout';
+import Banner from '../components/banner';
+import Home from '../components/content/home';
+import UseRooms from '../hooks/use-rooms';
+import RoomPreview from '../components/roomPreview';
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import { h2Style, UlStyle } from '../styles/roomStyles';
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+const IndexPage = () => {
+
+  const rooms = UseRooms();
+
+  return (
+    <Layout>
+      <Banner />
+
+      <Home />
+
+      <br />
+      <h2 css={h2Style}>
+        Nuestras Habitaciones
+      </h2>
+
+      <UlStyle>
+        {rooms.map((room, key) => (
+          <RoomPreview room={room} key={key} />
+        ))}
+      </UlStyle>
+
+    </Layout>
+  );
+}
 
 export default IndexPage
